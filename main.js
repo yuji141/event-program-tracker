@@ -158,7 +158,7 @@ csvFileInput.addEventListener("change", (event) => {
 
   };
 
-  reader.readAsText(file);
+  reader.readAsText(file, "Shift_JIS");
 
 });
 
