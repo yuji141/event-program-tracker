@@ -151,14 +151,20 @@ csvFileInput.addEventListener("change", (event) => {
   const reader = new FileReader();
 
   reader.onload = () => {
-
-    const csvText = reader.result;
-
-    loadCSV(csvText);
-
-  };
-
-  reader.readAsText(file, "Shift_JIS");
+  
+  const decoder = new TextDecoder("utf-8");
+  
+  const csvText = decoder.decode(reader.result);
+  
+  console.log(csvText);
+  
+  alert(csvText);
+  
+  loadCSV(csvText);
+  
+};
+  reader.readAsArrayBuffer(file);
+  
 
 });
 
