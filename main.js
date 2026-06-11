@@ -8,6 +8,14 @@ const prevButton = document.getElementById("prev-button");
 const nextButton = document.getElementById("next-button");
 
 const csvFileInput = document.getElementById("csv-file");
+const timeInput =
+  document.getElementById("time-input");
+
+const titleInput =
+  document.getElementById("title-input");
+
+const addButton =
+  document.getElementById("add-button");
 
 function timeToMinutes(timeString) {
 
@@ -90,9 +98,26 @@ function renderPrograms() {
     }
 
     li.innerHTML = `
-      <span class="time">${program.time}</span>
-      <span class="title">${program.title}</span>
-    `;
+  <span class="time">${program.time}</span>
+  <span class="title">${program.title}</span>
+
+  <button class="delete-button">
+    ×
+  </button>
+  `;
+  
+  const deleteButton =
+  li.querySelector(".delete-button");
+
+deleteButton.addEventListener("click", (event) => {
+  
+  event.stopPropagation();
+  
+  programs.splice(index, 1);
+  
+  renderPrograms();
+  
+});
 
     li.addEventListener("click", () => {
 
@@ -140,6 +165,34 @@ prevButton.addEventListener("click", () => {
 
   }
 
+});
+
+addButton.addEventListener("click", () => {
+  
+  const time = timeInput.value;
+  const title = titleInput.value;
+  
+  if (!time || !title) {
+    alert("時刻と種目名を入力してください");
+    return;
+  }
+  
+  programs.push({
+    time,
+    title
+  });
+  
+  programs.sort((a, b) => {
+  
+  return timeToMinutes(a.time) -
+    timeToMinutes(b.time);
+  
+}); 
+  timeInput.value = "";
+titleInput.value = "";
+
+  renderPrograms();
+  
 });
 
 csvFileInput.addEventListener("change", (event) => {
