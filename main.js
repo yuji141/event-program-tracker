@@ -113,6 +113,12 @@ deleteButton.addEventListener("click", (event) => {
   
   event.stopPropagation();
   
+  const isConfirmed = confirm(
+    `${program.title} を削除しますか？`
+  );
+  
+  if (!isConfirmed) return;
+  
   programs.splice(index, 1);
   
   renderPrograms();
