@@ -58,6 +58,31 @@ function findCurrentTimeIndex() {
 
 }
 
+function savePrograms() {
+  
+  localStorage.setItem(
+    "programs",
+    JSON.stringify(programs)
+  );
+  
+}
+
+function loadPrograms() {
+  
+  const savedPrograms =
+    localStorage.getItem("programs");
+  
+  if (!savedPrograms) return;
+  
+  const parsedPrograms =
+    JSON.parse(savedPrograms);
+  
+  programs.length = 0;
+  
+  programs.push(...parsedPrograms);
+  
+}
+
 function renderPrograms() {
 
   if (programs.length === 0) {
@@ -195,7 +220,9 @@ addButton.addEventListener("click", () => {
   
 }); 
   timeInput.value = "";
-titleInput.value = "";
+  titleInput.value = "";
+  
+  savePrograms();
 
   renderPrograms();
   
@@ -253,9 +280,12 @@ function loadCSV(csvText) {
   } else {
     currentIndex = 0;
   }
+  
+  savePrograms();
 
   renderPrograms();
 
 }
 
+loadPrograms();
 renderPrograms();
