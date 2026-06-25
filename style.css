@@ -30,6 +30,12 @@ header {
   font-size: 1.1rem;
 }
 
+.title {
+  
+  flex: 1;
+  
+}
+
 .time {
   font-weight: bold;
   min-width: 70px;
@@ -64,7 +70,8 @@ button {
   flex: 1;
 }
 
-.delete-button {
+.delete-button,
+.edit-button {
   
   flex: 0;
   
@@ -72,11 +79,19 @@ button {
   
   font-size: 0.9rem;
   
-  background: #d32f2f;
-  
   border-radius: 8px;
   
+  width: auto;
+  
 }
+
+.edit-button {
+  background: #1976d2;
+}
+
+.delete-button {
+  background: #d32f2f;
+} 
 
 .time-line {
   height: 4px;
@@ -84,3 +99,4 @@ button {
   border-radius: 999px;
   margin: 12px 0;
 }
+

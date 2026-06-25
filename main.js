@@ -126,10 +126,49 @@ function renderPrograms() {
   <span class="time">${program.time}</span>
   <span class="title">${program.title}</span>
 
+  <button class="edit-button">
+    ✎
+  </button>
+
   <button class="delete-button">
     ×
   </button>
-  `;
+`;
+
+const editButton =
+  li.querySelector(".edit-button");
+  
+  editButton.addEventListener("click", (event) => {
+  
+  event.stopPropagation();
+  
+  const newTime = prompt(
+    "時刻を入力してください",
+    program.time
+  );
+  
+  if (newTime === null) return;
+  
+  const newTitle = prompt(
+    "種目名を入力してください",
+    program.title
+  );
+  
+  if (newTitle === null) return;
+  
+  program.time = newTime;
+  program.title = newTitle;
+  
+  programs.sort((a, b) =>
+    timeToMinutes(a.time) -
+    timeToMinutes(b.time)
+  );
+  
+  savePrograms();
+  
+  renderPrograms();
+  
+});
   
   const deleteButton =
   li.querySelector(".delete-button");
