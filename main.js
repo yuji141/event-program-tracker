@@ -67,6 +67,15 @@ function savePrograms() {
   
 }
 
+function saveCurrentIndex() {
+
+  localStorage.setItem(
+    "currentIndex",
+    currentIndex
+  );
+
+}
+
 function loadPrograms() {
   
   const savedPrograms =
@@ -81,6 +90,17 @@ function loadPrograms() {
   
   programs.push(...parsedPrograms);
   
+}
+
+function loadCurrentIndex() {
+
+  const savedIndex =
+    localStorage.getItem("currentIndex");
+
+  if (savedIndex === null) return;
+
+  currentIndex = Number(savedIndex);
+
 }
 
 function renderPrograms() {
@@ -190,12 +210,14 @@ deleteButton.addEventListener("click", (event) => {
 });
 
     li.addEventListener("click", () => {
-
-      currentIndex = index;
-
-      renderPrograms();
-
-    });
+  
+  currentIndex = index;
+  
+  saveCurrentIndex();
+  
+  renderPrograms();
+  
+});
 
     programList.appendChild(li);
 
@@ -214,27 +236,31 @@ deleteButton.addEventListener("click", (event) => {
 }
 
 nextButton.addEventListener("click", () => {
-
+  
   if (currentIndex < programs.length - 1) {
-
+    
     currentIndex++;
-
+    
+    saveCurrentIndex();
+    
     renderPrograms();
-
+    
   }
-
+  
 });
 
 prevButton.addEventListener("click", () => {
-
+  
   if (currentIndex > 0) {
-
+    
     currentIndex--;
-
+    
+    saveCurrentIndex();
+    
     renderPrograms();
-
+    
   }
-
+  
 });
 
 addButton.addEventListener("click", () => {
@@ -320,6 +346,8 @@ function loadCSV(csvText) {
     currentIndex = 0;
   }
   
+  saveCurrentIndex();
+  
   savePrograms();
 
   renderPrograms();
@@ -327,4 +355,7 @@ function loadCSV(csvText) {
 }
 
 loadPrograms();
+
+loadCurrentIndex();
+
 renderPrograms();
